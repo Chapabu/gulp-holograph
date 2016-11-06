@@ -4,8 +4,9 @@
   "description": "Build Holograph styleguides with Gulp.",
   "main": "src/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/*.spec.js",
-    "lint": "./node_modules/.bin/eslint"
+    "test": "npm run lint && npm run mocha",
+    "mocha": "./node_modules/.bin/mocha test/*.spec.js",
+    "lint": "./node_modules/.bin/eslint src test"
   },
   "repository": {
     "type": "git",
