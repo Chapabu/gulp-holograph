@@ -1,6 +1,13 @@
 {
   "globalDependencies": {
+    "extend": "registry:dt/extend#2.0.0+20160316155526",
+    "js-yaml": "registry:dt/js-yaml#3.5.2+20160316171810",
+    "node": "registry:dt/node#6.0.0+20161019125345",
+    "vinyl": "registry:dt/vinyl#1.2.0+20160924121322"
+  },
+  "globalDevDependencies": {
     "chai": "registry:dt/chai#3.4.0+20160601211834",
+    "gulp": "registry:dt/gulp#3.8.0+20160907112908",
     "mocha": "registry:dt/mocha#2.2.5+20160720003353"
   }
 }
