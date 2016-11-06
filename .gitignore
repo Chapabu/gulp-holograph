@@ -38,3 +38,7 @@ jspm_packages
 
 # Typings
 typings
+
+# IDE/editor
+.idea
+.vscode
