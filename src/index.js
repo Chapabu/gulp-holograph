@@ -15,7 +15,8 @@ const handleBuffer = function (file, encoding, callback) {
   return callback(null, file);
 };
 
-const handleStream = (file, encoding, callback) => {
+const handleStream = function (file, encoding, callback) {
+
   let config = '';
 
   file.contents.on('data', chunk => {
@@ -27,11 +28,12 @@ const handleStream = (file, encoding, callback) => {
     holograph.holograph(config);
     return callback(null, file);
   });
+
 };
 
 const gulpHolograph = () => {
 
-  return through.obj((file, encoding, callback) => {
+  return through.obj(function (file, encoding, callback) {
 
     // If our file has no contents, then just return the callback.
     if (file.isNull()) {

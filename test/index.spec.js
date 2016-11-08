@@ -11,24 +11,21 @@ const PluginError = require('gulp-util').PluginError;
 
 describe('gulp-holograph', function () {
 
-  // Disable the timeout.
-  this.timeout(0);
-
-  describe('supported input', () => {
+  describe('supported input', function () {
 
     let holographInit;
 
-    beforeEach(() => {
+    beforeEach(function () {
       holographInit = sinon.stub(holograph, 'holograph');
     });
 
-    afterEach(() => {
+    afterEach(function () {
       holographInit.restore();
     });
 
-    describe('streamed input', () => {
+    describe('streamed input', function () {
 
-      it('triggers Holograph when given a stream', done => {
+      it('triggers Holograph when given a stream', function (done) {
 
         let file = new File({
           path: 'test/fixtures/holograph_config.yml',
@@ -39,7 +36,7 @@ describe('gulp-holograph', function () {
 
         let stream = holographPlugin();
 
-        stream.on('data', () => {
+        stream.on('data', function () {
           const holographWasCalled = holographInit.called;
           expect(holographWasCalled).to.be.true;
           done();
@@ -52,9 +49,9 @@ describe('gulp-holograph', function () {
 
     });
 
-    describe('buffered input', () => {
+    describe('buffered input', function () {
 
-      it('triggers Holograph when given a buffer', done => {
+      it('triggers Holograph when given a buffer', function (done) {
 
         let file = new File({
           path: 'test/fixtures/holograph_config.yml',
@@ -65,7 +62,7 @@ describe('gulp-holograph', function () {
 
         let stream = holographPlugin();
 
-        stream.on('data', () => {
+        stream.on('data', function () {
           const holographWasCalled = holographInit.called;
           expect(holographWasCalled).to.be.true;
           done();
@@ -80,9 +77,9 @@ describe('gulp-holograph', function () {
 
   });
 
-  describe('unsupported input', () => {
+  describe('unsupported input', function () {
 
-    it('throws a PluginError when given null input', () => {
+    it('throws a PluginError when given null input', function (done) {
 
       const file = new File({
         path: 'test/fixtures/holograph_config.yml',
@@ -90,6 +87,16 @@ describe('gulp-holograph', function () {
         base: 'test/fixtures',
       });
 
+      let stream = holographPlugin();
+
+      stream.on('error', function (error) {
+        const errorType = error.constructor.name;
+        expect(errorType).to.equal('PluginError');
+        done();
+      });
+
+      stream.write(file);
+      stream.end();
 
     });
 
