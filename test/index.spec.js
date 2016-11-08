@@ -80,6 +80,27 @@ describe('gulp-holograph', function () {
 
     context('throws a PluginError when given...', function () {
 
+      /**
+       * Assert that PluginError was emitted by the Holograph plugin.
+       *
+       * @param {Vinyl} file
+       * @param {function} cb
+       */
+      function checkErrorIsEmitted(file, cb) {
+
+        let stream = holographPlugin();
+
+        stream.on('error', function (error) {
+          const errorType = error.constructor.name;
+          expect(errorType).to.equal('PluginError');
+          cb();
+        });
+
+        stream.write(file);
+        stream.end();
+
+      }
+
       specify('null input/empty file', function (done) {
 
         const file = new File({
@@ -88,16 +109,7 @@ describe('gulp-holograph', function () {
           base: 'test/fixtures',
         });
 
-        let stream = holographPlugin();
-
-        stream.on('error', function (error) {
-          const errorType = error.constructor.name;
-          expect(errorType).to.equal('PluginError');
-          done();
-        });
-
-        stream.write(file);
-        stream.end();
+        checkErrorIsEmitted(file, done);
 
       });
 
@@ -114,16 +126,7 @@ describe('gulp-holograph', function () {
           }
         });
 
-        let stream = holographPlugin();
-
-        stream.on('error', function (error) {
-          const errorType = error.constructor.name;
-          expect(errorType).to.equal('PluginError');
-          done();
-        });
-
-        stream.write(file);
-        stream.end();
+        checkErrorIsEmitted(file, done);
 
       });
 
@@ -140,16 +143,7 @@ describe('gulp-holograph', function () {
           }
         });
 
-        let stream = holographPlugin();
-
-        stream.on('error', function (error) {
-          const errorType = error.constructor.name;
-          expect(errorType).to.equal('PluginError');
-          done();
-        });
-
-        stream.write(file);
-        stream.end();
+        checkErrorIsEmitted(file, done);
 
       });
 
