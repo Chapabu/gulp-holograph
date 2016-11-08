@@ -3,14 +3,13 @@
     "extend": "registry:dt/extend#2.0.0+20160316155526",
     "gulp-util": "registry:dt/gulp-util#0.0.0+20160316155526",
     "js-yaml": "registry:dt/js-yaml#3.5.2+20160316171810",
-    "mock-fs": "registry:dt/mock-fs#3.6.0+20160317120654",
-    "node": "registry:dt/node#6.0.0+20161019125345",
-    "sinon": "registry:dt/sinon#1.16.0+20160924120326",
-    "vinyl": "registry:dt/vinyl#1.2.0+20160924121322"
+    "node": "registry:dt/node#6.0.0+20161019125345"
   },
   "globalDevDependencies": {
     "chai": "registry:dt/chai#3.4.0+20160601211834",
     "gulp": "registry:dt/gulp#3.8.0+20160907112908",
-    "mocha": "registry:dt/mocha#2.2.5+20160720003353"
+    "mocha": "registry:dt/mocha#2.2.5+20160720003353",
+    "sinon": "registry:dt/sinon#1.16.0+20160924120326",
+    "vinyl": "registry:dt/vinyl#1.2.0+20160924121322"
   }
 }
