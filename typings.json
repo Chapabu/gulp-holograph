@@ -4,6 +4,7 @@
     "js-yaml": "registry:dt/js-yaml#3.5.2+20160316171810",
     "mock-fs": "registry:dt/mock-fs#3.6.0+20160317120654",
     "node": "registry:dt/node#6.0.0+20161019125345",
+    "sinon": "registry:dt/sinon#1.16.0+20160924120326",
     "vinyl": "registry:dt/vinyl#1.2.0+20160924121322"
   },
   "globalDevDependencies": {
