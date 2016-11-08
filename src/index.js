@@ -1,6 +1,9 @@
 const holograph = require('holograph');
 const Transform = require('readable-stream/transform');
 const configParser = require('./configParser');
+const PluginError = require('gulp-util').PluginError;
+
+const PLUGIN_NAME = 'gulp-hologram';
 
 module.exports = () => {
 
@@ -11,7 +14,7 @@ module.exports = () => {
 
         // If our file has no contents, then just return the callback.
         if (file.isNull()) {
-          return cb(null, file);
+          throw new PluginError('gulp-holograph', 'No file contents.');
         }
 
         // Handle buffers.
