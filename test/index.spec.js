@@ -78,30 +78,83 @@ describe('gulp-holograph', function () {
 
   describe('unsupported input', function () {
 
-    it('throws a PluginError when given null input', function (done) {
+    context('throws a PluginError when given...', function () {
 
-      const file = new File({
-        path: 'test/fixtures/holograph_config.yml',
-        cwd: 'test/',
-        base: 'test/fixtures',
+      specify('null input/empty file', function (done) {
+
+        const file = new File({
+          path: 'test/fixtures/holograph_config.yml',
+          cwd: 'test/',
+          base: 'test/fixtures',
+        });
+
+        let stream = holographPlugin();
+
+        stream.on('error', function (error) {
+          const errorType = error.constructor.name;
+          expect(errorType).to.equal('PluginError');
+          done();
+        });
+
+        stream.write(file);
+        stream.end();
+
       });
 
-      let stream = holographPlugin();
+      specify('a directory', function (done) {
 
-      stream.on('error', function (error) {
-        const errorType = error.constructor.name;
-        expect(errorType).to.equal('PluginError');
-        done();
+        const file = new File({
+          path: 'test/fixtures/holograph_config.yml',
+          cwd: 'test/',
+          base: 'test/fixtures',
+          stat: {
+            isDirectory: () => {
+              return true;
+            }
+          }
+        });
+
+        let stream = holographPlugin();
+
+        stream.on('error', function (error) {
+          const errorType = error.constructor.name;
+          expect(errorType).to.equal('PluginError');
+          done();
+        });
+
+        stream.write(file);
+        stream.end();
+
       });
 
-      stream.write(file);
-      stream.end();
+      specify('a symlink', function (done) {
+
+        const file = new File({
+          path: 'test/fixtures/holograph_config.yml',
+          cwd: 'test/',
+          base: 'test/fixtures',
+          stat: {
+            isSymbolicLink: () => {
+              return true;
+            }
+          }
+        });
+
+        let stream = holographPlugin();
+
+        stream.on('error', function (error) {
+          const errorType = error.constructor.name;
+          expect(errorType).to.equal('PluginError');
+          done();
+        });
+
+        stream.write(file);
+        stream.end();
+
+      });
 
     });
 
-
-
   });
-
 
 });

@@ -35,7 +35,8 @@ const gulpHolograph = () => {
 
   return through.obj(function (file, encoding, callback) {
 
-    // If our file has no contents, then just return the callback.
+    // Handle any non-supported types.
+    // This covers directories and symlinks as well, as they have to be null.
     if (file.isNull()) {
       this.emit('error', new PluginError(PLUGIN_NAME, 'No file contents.'));
     }
