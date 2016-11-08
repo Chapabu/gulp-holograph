@@ -26,7 +26,7 @@ the `gulp-holograph` task.
 ```javascript
 const holograph = require('gulp-holograph');
 
-gulp.task('holograph', function () => {
+gulp.task('holograph', function () {
   gulp.src('holograph_config.yml')
     .pipe(holograph());
 });
