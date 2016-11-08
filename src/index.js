@@ -1,51 +1,55 @@
 'use strict';
 
+// Module imports.
 const holograph = require('holograph');
-const Transform = require('readable-stream/transform');
 const configParser = require('./configParser');
 const PluginError = require('gulp-util').PluginError;
+const through = require('through2');
 
-const PLUGIN_NAME = 'gulp-hologram';
+// General constants.
+const PLUGIN_NAME = 'gulp-holograph';
 
-module.exports = () => {
+const handleBuffer = function (file, encoding, callback) {
+  const config = configParser(String(file.contents));
+  holograph.holograph(config);
+  return callback(null, file);
+};
 
+const handleStream = (file, encoding, callback) => {
+  let config = '';
 
-  return new Transform({
-      objectMode: true,
-      transform: (file, encoding, cb) => {
+  file.contents.on('data', chunk => {
+    config += chunk;
+  });
 
-        // If our file has no contents, then just return the callback.
-        if (file.isNull()) {
-          throw new PluginError('gulp-holograph', 'No file contents.');
-        }
+  file.contents.on('end', () => {
+    config = configParser(config);
+    holograph.holograph(config);
+    return callback(null, file);
+  });
+};
 
-        // Handle buffers.
-        if (file.isBuffer()) {
+const gulpHolograph = () => {
 
-          const config = configParser(String(file.contents));
-          holograph.holograph(config);
-          return cb(null, file);
-        }
+  return through.obj((file, encoding, callback) => {
 
-        // Handle streams.
-        if (file.isStream()) {
+    // If our file has no contents, then just return the callback.
+    if (file.isNull()) {
+      this.emit('error', new PluginError(PLUGIN_NAME, 'No file contents.'));
+    }
 
-          let config = '';
+    // Handle buffers.
+    if (file.isBuffer()) {
+      handleBuffer(file, encoding, callback);
+    }
 
-          file.contents.on('data', chunk => {
-            config += chunk;
-          });
+    // Handle streams.
+    if (file.isStream()) {
+      handleStream(file, encoding, callback);
+    }
 
-          file.contents.on('end', () => {
-            config = configParser(config);
-            holograph.holograph(config);
-            return cb(null, file);
-          });
-
-        }
-
-      }
-
-    });
+  });
 
 };
+
+module.exports = gulpHolograph;
