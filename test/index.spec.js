@@ -39,7 +39,7 @@ describe('gulp-holograph', function () {
 
       stream.on('data', () => {
         const holographWasCalled = holographInit.called;
-        expect(holographWasCalled).to.be.false;
+        expect(holographWasCalled).to.be.true;
         done();
       });
 
@@ -65,7 +65,7 @@ describe('gulp-holograph', function () {
 
       stream.on('data', () => {
         const holographWasCalled = holographInit.called;
-        expect(holographWasCalled).to.be.false;
+        expect(holographWasCalled).to.be.true;
         done();
       });
 
