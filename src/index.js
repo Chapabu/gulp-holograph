@@ -9,12 +9,28 @@ const through = require('through2');
 // General constants.
 const PLUGIN_NAME = 'gulp-holograph';
 
+/**
+ * Run Hologram when given a buffer.
+ *
+ * @param {Object} file A Vinyl file.
+ * @param {String} encoding The file encoding.
+ * @param {Function} cb Called after hologram has run.
+ * @returns {Function} Executed callback.
+ */
 function handleBuffer (file, encoding, cb) {
   const config = configParser(String(file.contents));
   holograph.holograph(config);
   return cb(null, file);
 }
 
+/**
+ * Run Hologram when given a stream.
+ *
+ * @param {Object} file A Vinyl file.
+ * @param {String} encoding The file encoding.
+ * @param {Function} cb Called after hologram has run.
+ * @returns {Function} Executed callback.
+ */
 function handleStream (file, encoding, cb) {
 
   let config = '';
@@ -31,6 +47,11 @@ function handleStream (file, encoding, cb) {
 
 }
 
+/**
+ * The actual plugin. Runs Holograph with a provided config file.
+ *
+ * @returns {Object} A through2 stream.
+ */
 function gulpHolograph () {
 
   return through.obj(function (file, encoding, cb) {
