@@ -7,7 +7,6 @@ const File = require('vinyl');
 const fs = require('fs');
 const sinon = require('sinon');
 const holograph = require('holograph');
-const PluginError = require('gulp-util').PluginError;
 
 describe('gulp-holograph', function () {
 
@@ -99,6 +98,8 @@ describe('gulp-holograph', function () {
       stream.end();
 
     });
+
+
 
   });
 
