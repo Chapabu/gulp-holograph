@@ -9,7 +9,7 @@
 ### Installation
 
 ```bash
-npm install gulp-holograph
+npm install gulp-holograph --save-dev
 ```
 
 or
