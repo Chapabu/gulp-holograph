@@ -1,6 +1,6 @@
 {
   "name": "gulp-holograph",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build Holograph styleguides with Gulp.",
   "main": "src/index.js",
   "scripts": {
