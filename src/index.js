@@ -9,13 +9,13 @@ const through = require('through2');
 // General constants.
 const PLUGIN_NAME = 'gulp-holograph';
 
-const handleBuffer = function (file, encoding, callback) {
+function handleBuffer (file, encoding, cb) {
   const config = configParser(String(file.contents));
   holograph.holograph(config);
-  return callback(null, file);
-};
+  return cb(null, file);
+}
 
-const handleStream = function (file, encoding, callback) {
+function handleStream (file, encoding, cb) {
 
   let config = '';
 
@@ -26,14 +26,14 @@ const handleStream = function (file, encoding, callback) {
   file.contents.on('end', () => {
     config = configParser(config);
     holograph.holograph(config);
-    return callback(null, file);
+    return cb(null, file);
   });
 
-};
+}
 
-const gulpHolograph = () => {
+function gulpHolograph () {
 
-  return through.obj(function (file, encoding, callback) {
+  return through.obj(function (file, encoding, cb) {
 
     // Handle any non-supported types.
     // This covers directories and symlinks as well, as they have to be null.
@@ -43,16 +43,16 @@ const gulpHolograph = () => {
 
     // Handle buffers.
     if (file.isBuffer()) {
-      handleBuffer(file, encoding, callback);
+      handleBuffer(file, encoding, cb);
     }
 
     // Handle streams.
     if (file.isStream()) {
-      handleStream(file, encoding, callback);
+      handleStream(file, encoding, cb);
     }
 
   });
 
-};
+}
 
 module.exports = gulpHolograph;
