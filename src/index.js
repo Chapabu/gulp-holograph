@@ -2,11 +2,6 @@ const holograph = require('holograph');
 const Transform = require('readable-stream/transform');
 const configParser = require('./configParser');
 
-/**
- *
- *
- * @returns
- */
 module.exports = () => {
 
 
@@ -18,7 +13,6 @@ module.exports = () => {
         if (file.isNull()) {
           return cb(null, file);
         }
-
 
         // Handle buffers.
         if (file.isBuffer()) {
@@ -43,9 +37,7 @@ module.exports = () => {
             return cb(null, file);
           });
 
-          return cb(null, file);
         }
-        // Merge any default configuration.
 
       }
 

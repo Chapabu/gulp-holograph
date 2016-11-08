@@ -76,7 +76,4 @@ describe('gulp-holograph', function () {
 
   });
 
-
-
-
 });
