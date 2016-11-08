@@ -1,3 +1,5 @@
+'use strict';
+
 const holograph = require('holograph');
 const Transform = require('readable-stream/transform');
 const configParser = require('./configParser');

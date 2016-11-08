@@ -1,3 +1,5 @@
+'use strict';
+
 // Module imports.
 const expect = require('chai').expect;
 const holographPlugin = require('../src');
